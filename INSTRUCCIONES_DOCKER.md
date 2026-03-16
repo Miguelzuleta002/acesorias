@@ -35,10 +35,17 @@ Abre una terminal en `c:\Users\migue\Downloads\acesorias` y ejecuta el siguiente
 docker-compose up --build -d
 \`\`\`
 
-*   El flag `--build` fuerza la creación de las imágenes desde cero.
-*   El flag `-d` o "detached" permite que los contenedores corran en segundo plano.
+### 🌟 Escalamiento Horizontal y Balanceo de Cargas (Bonus)
 
-Puedes comprobar que todo esté corriendo con:
+Para implementar **Escalamiento Horizontal**, hemos configurado un Balanceador de Cargas (*Load Balancer*) utilizando NGINX. 
+Esto significa que puedes iniciar múltiples clones o "réplicas" de tu microservicio, y el balanceador de cargas (que ahora escucha en el puerto 4001) distribuirá las peticiones de los usuarios equitativamente entre los clones para evitar que el sistema colapse.
+
+Para iniciar el proyecto con **3 réplicas** de tu microservicio, ejecuta:
+\`\`\`bash
+docker-compose up --build --scale proyecto-microservicio=3 -d
+\`\`\`
+
+Puedes comprobar que las 3 réplicas, la API monolítica y el Nginx estén corriendo con:
 \`\`\`bash
 docker ps
 \`\`\`
