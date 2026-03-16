@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  asesorias-api:
+    image: miguelz2002/asesorias-api:latest
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URI=${MONGO_URI_API}
+      - PORT=4000
+
+  proyecto-microservicio:
+    image: miguelz2002/proyecto-microservicio:latest
+    environment:
+      - MONGO_URI=${MONGO_URI_MICROSERVICIO}
+      - PORT=4001
+
+  balancer:
+    image: miguelz2002/asesorias-balancer:latest
+    ports:
+      - "4001:80"
+    depends_on:
+      - proyecto-microservicio
